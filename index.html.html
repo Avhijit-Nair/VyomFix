@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Space Startup Flight Simulator MVP</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+  body {
+    font-family: 'Inter', sans-serif;
+    margin: 0; padding: 0;
+    background: #f0f4f8;
+    color: #2c3e50;
+  }
+  .container {
+    max-width: 960px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+  h1 {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #34495e;
+  }
+  p.description {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+  }
+  .buttons {
+    margin-bottom: 25px;
+  }
+  button {
+    background-color: #2980b9;
+    border: none;
+    padding: 12px 24px;
+    margin-right: 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #3498db;
+  }
+  button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+  }
+  #graphs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  .graph-container {
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+  }
+  #anomaly-list {
+    margin-top: 30px;
+    padding: 15px;
+    background: #fdecea;
+    border-left: 6px solid #e74c3c;
+    border-radius: 6px;
+    color: #c0392b;
+    font-weight: 600;
+  }
+  #anomaly-list ul {
+    margin: 10px 0 0 20px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Flight Simulation & Anomaly Detection</h1>
+    <p class="description">
+      This application simulates multiple aircraft flights, including normal and anomalous scenarios, visualizes key flight parameters, and allows you to detect anomalies using AI-driven logic.  
+      Use the <strong>Simulate</strong> button to generate random flights, then click <strong>Detect</strong> to highlight anomalies on the graphs and view detailed reports.
+    </p>
+    <div class="buttons">
+      <button id="simulate-btn">Simulate</button>
+      <button id="detect-btn" disabled>Detect</button>
+    </div>
+    <div id="graphs">
+      <div class="graph-container"><div id="altitude-graph"></div></div>
+      <div class="graph-container"><div id="speed-graph"></div></div>
+      <div class="graph-container"><div id="aoa-graph"></div></div>
+      <div class="graph-container"><div id="cl-graph"></div></div>
+    </div>
+    <div id="anomaly-list"></div>
+  </div>
+
+<script>
+  let flightsData = [];
+  let anomalyResults = [];
+
+  // Utility functions for mathematical operations
+  function linspace(start, end, num) {
+    const step = (end - start) / (num - 1);
+    return Array.from({length: num}, (_, i) => start + i * step);
+  }
+
+  function sin(x) {
+    return Math.sin(x);
+  }
+
+  function cos(x) {
+    return Math.cos(x);
+  }
+
+  function random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function randomChoice(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+
+  // Simulate single flight (converted from Python)
+  function simulateSingleFlight(abnormal = false) {
+    const t = linspace(0, 100, 500);
+    const altitude = t.map(time => 1000 * sin(time / 20) + 5000);
+    const speed = t.map(time => 250 + 10 * cos(time / 10));
+    const aoa = t.map(time => 5 * sin(time / 15) + 5);
+    const liftCurveSlope = 0.1;
+    const cl = aoa.map(angle => liftCurveSlope * angle);
+
+    // Apply anomalies if requested
+    if (abnormal) {
+      for (let i = 250; i < 260; i++) {
+        speed[i] -= 100;
+        aoa[i] += 20;
+        cl[i] = liftCurveSlope * aoa[i];
+      }
+    }
+
+    return {
+      time: t,
+      altitude: altitude,
+      speed: speed,
+      angle_of_attack: aoa,
+      lift_coefficient: cl
+    };
+  }
+
+  // Simulate multiple flights (converted from Python)
+  function simulateMultipleFlights() {
+    const numFlights = randomInt(2, 5);
+    const flights = [];
+    
+    for (let i = 0; i < numFlights; i++) {
+      const abnormal = randomChoice([false, true]);
+      const flightData = simulateSingleFlight(abnormal);
+      flights.push({
+        id: i + 1,
+        data: flightData,
+        abnormal: abnormal
+      });
+    }
+    
+    return flights;
+  }
+
+  // Detect anomalies (converted from Python)
+  function detectAnomalies(data) {
+    const anomalies = [];
+    for (let i = 0; i < data.speed.length; i++) {
+      const s = data.speed[i];
+      const aoa = data.angle_of_attack[i];
+      if (s < 200 || aoa > 15) {
+        anomalies.push(i);
+      }
+    }
+    return anomalies;
+  }
+
+  // Main simulation function
+  async function simulateFlights() {
+    flightsData = simulateMultipleFlights();
+    anomalyResults = [];
+    document.getElementById('detect-btn').disabled = false;
+    plotAllGraphs(flightsData);
+    document.getElementById('anomaly-list').innerHTML = '';
+  }
+
+  // Main detection function
+  async function detectAnomaliesForFlights() {
+    if (flightsData.length === 0) return;
+    
+    anomalyResults = [];
+    for (const flight of flightsData) {
+      const anomalies = detectAnomalies(flight.data);
+      anomalyResults.push({
+        id: flight.id,
+        anomalies: anomalies
+      });
+    }
+    
+    plotAllGraphs(flightsData, anomalyResults);
+    showAnomalies(anomalyResults, flightsData);
+  }
+
+  function plotAllGraphs(flights, anomalies = []) {
+    // Helper to get anomaly indices for a flight id
+    const getAnomalyIndices = (id) => {
+      const res = anomalies.find(r => r.id === id);
+      return res ? res.anomalies : [];
+    };
+
+    // Plot each parameter with multiple flights traces
+    function plotParam(param, divId, yLabel) {
+      const traces = flights.map(flight => {
+        const anomalyIndices = getAnomalyIndices(flight.id);
+        const y = flight.data[param];
+        const time = flight.data.time;
+        // Color points: red for anomaly, blue otherwise
+        const markerColors = y.map((_, i) => anomalyIndices.includes(i) ? 'red' : 'blue');
+
+        return {
+          x: time,
+          y: y,
+          mode: 'lines+markers',
+          name: `Flight ${flight.id}` + (flight.abnormal ? ' (Anomalous)' : ''),
+          marker: { color: markerColors, size: 6 },
+          line: { shape: 'spline' }
+        };
+      });
+
+      const layout = {
+        title: yLabel,
+        xaxis: { title: 'Time (s)' },
+        yaxis: { title: yLabel },
+        height: 300,
+        margin: { t: 40, b: 40, l: 50, r: 20 },
+        legend: { orientation: 'h', y: -0.3 }
+      };
+
+      Plotly.newPlot(divId, traces, layout, {responsive: true});
+    }
+
+    plotParam('altitude', 'altitude-graph', 'Altitude (m)');
+    plotParam('speed', 'speed-graph', 'Speed (m/s)');
+    plotParam('angle_of_attack', 'aoa-graph', 'Angle of Attack (deg)');
+    plotParam('lift_coefficient', 'cl-graph', 'Lift Coefficient (Cl)');
+  }
+
+  function showAnomalies(anomalyResults, flights) {
+    const container = document.getElementById('anomaly-list');
+    let html = '';
+    let totalAnomalies = 0;
+
+    anomalyResults.forEach(res => {
+      const flight = flights.find(f => f.id === res.id);
+      if (res.anomalies.length > 0) {
+        totalAnomalies += res.anomalies.length;
+        html += `<p><strong>Flight ${res.id} anomalies:</strong></p><ul>`;
+        res.anomalies.forEach(i => {
+          html += `<li>Time: ${flight.data.time[i].toFixed(2)}s, Speed: ${flight.data.speed[i].toFixed(2)} m/s, AoA: ${flight.data.angle_of_attack[i].toFixed(2)}°</li>`;
+        });
+        html += '</ul>';
+      }
+    });
+
+    if (totalAnomalies === 0) {
+      container.innerHTML = '<p style="color:green; font-weight:600;">No anomalies detected in any flight.</p>';
+    } else {
+      container.innerHTML = html;
+    }
+  }
+
+  // Event listeners
+  document.getElementById('simulate-btn').addEventListener('click', async () => {
+    document.getElementById('simulate-btn').disabled = true;
+    document.getElementById('detect-btn').disabled = true;
+    await simulateFlights();
+    document.getElementById('simulate-btn').disabled = false;
+  });
+
+  document.getElementById('detect-btn').addEventListener('click', async () => {
+    document.getElementById('detect-btn').disabled = true;
+    await detectAnomaliesForFlights();
+    document.getElementById('detect-btn').disabled = false;
+  });
+</script>
+</body>
+</html>
