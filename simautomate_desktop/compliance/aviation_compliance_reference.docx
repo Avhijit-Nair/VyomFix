@@ -1,0 +1,23 @@
+VyomFix Aviation Simulation Compliance Reference Document
+
+National Aviation Authority – Flight Simulation Compliance Requirements
+
+Section 1: General Requirements
+1.1 The simulation system must accurately reproduce the flight dynamics of the reference aircraft.
+1.2 All data used for validation must be traceable to real flight test data.
+
+Section 2: Flight Path and Position
+2.1 The simulated Northing, Easting, and Altitude must not deviate from real flight data by more than 5% at any time.
+2.2 The mean deviation for position parameters must not exceed 2%.
+
+Section 3: Attitude and Orientation
+3.1 Euler angles (Roll, Pitch, Heading) must remain within ±3 degrees of real flight data.
+3.2 The mean deviation for attitude parameters must not exceed 1.5 degrees.
+
+Section 4: Acceleration and Forces
+4.1 Simulated accelerations (X, Y, Z, Total) must not deviate from real data by more than 10% at any time.
+4.2 The mean deviation for acceleration parameters must not exceed 5%.
+
+Section 5: Anomaly Reporting
+5.1 Any instance where a parameter exceeds the allowed deviation must be reported, with time, value, and possible cause.
+5.2 The system must provide a mapping of each anomaly to the relevant compliance section. 

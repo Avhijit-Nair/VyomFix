@@ -1,0 +1,19 @@
+# Ignore all CSV files
+*.csv
+
+# Ignore all JSON files
+*.json
+
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+
+# Ignore temporary files
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# Ignore token and credentials
+*token.json
+*credentials.json 
