@@ -9,7 +9,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 SCOPES = ['https://www.googleapis.com/auth/documents', 'https://www.googleapis.com/auth/drive.file']
-CREDENTIALS_FILE = 'credentials.json'
+CREDENTIALS_FILE = 'C:/Users/navijit/Desktop/VyomFix/simautomate_desktop/credentials.json'
 TOKEN_FILE = 'token.json'
 
 def get_google_creds():

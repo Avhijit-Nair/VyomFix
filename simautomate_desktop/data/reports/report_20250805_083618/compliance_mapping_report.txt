@@ -1,0 +1,5 @@
+Non-compliance detected in Sections: 4.1
+{'Compliance Section': '4.1', 'Parameter': 'x', 'Max Deviation (%)': '132.85', 'Allowed Max (%)': '10.00', 'Mean Deviation (%)': '68.94', 'Allowed Mean (%)': '5.00', 'Status': 'Non-Compliant', 'Details/Reasoning': 'Max deviation 132.85% exceeds allowed 10.00%.'}
+{'Compliance Section': '4.1', 'Parameter': 'y', 'Max Deviation (%)': '332.82', 'Allowed Max (%)': '10.00', 'Mean Deviation (%)': '106.99', 'Allowed Mean (%)': '5.00', 'Status': 'Non-Compliant', 'Details/Reasoning': 'Max deviation 332.82% exceeds allowed 10.00%.'}
+{'Compliance Section': '4.1', 'Parameter': 'z', 'Max Deviation (%)': '90.45', 'Allowed Max (%)': '10.00', 'Mean Deviation (%)': '41.04', 'Allowed Mean (%)': '5.00', 'Status': 'Non-Compliant', 'Details/Reasoning': 'Max deviation 90.45% exceeds allowed 10.00%.'}
+{'Compliance Section': '4.1', 'Parameter': 'Tot', 'Max Deviation (%)': '34.59', 'Allowed Max (%)': '10.00', 'Mean Deviation (%)': '17.05', 'Allowed Mean (%)': '5.00', 'Status': 'Non-Compliant', 'Details/Reasoning': 'Max deviation 34.59% exceeds allowed 10.00%.'}

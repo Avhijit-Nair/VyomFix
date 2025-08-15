@@ -1,0 +1,8 @@
+Non-compliance detected in Sections: 4.1
+{'Compliance Section': '2.1', 'Parameter': 'Northing', 'Max Deviation (%)': '0.00', 'Allowed Max (%)': '5.00', 'Mean Deviation (%)': '0.00', 'Allowed Mean (%)': '2.00', 'Status': 'Compliant', 'Details/Reasoning': ''}
+{'Compliance Section': '2.1', 'Parameter': 'Easting', 'Max Deviation (%)': '0.00', 'Allowed Max (%)': '5.00', 'Mean Deviation (%)': '0.00', 'Allowed Mean (%)': '2.00', 'Status': 'Compliant', 'Details/Reasoning': ''}
+{'Compliance Section': '2.1', 'Parameter': 'Altitude', 'Max Deviation (%)': '0.00', 'Allowed Max (%)': '5.00', 'Mean Deviation (%)': '0.00', 'Allowed Mean (%)': '2.00', 'Status': 'Compliant', 'Details/Reasoning': ''}
+{'Compliance Section': '4.1', 'Parameter': 'x', 'Max Deviation (%)': '100.00', 'Allowed Max (%)': '10.00', 'Mean Deviation (%)': '79.83', 'Allowed Mean (%)': '5.00', 'Status': 'Non-Compliant', 'Details/Reasoning': 'Max deviation 100.00% exceeds allowed 10.00%.'}
+{'Compliance Section': '4.1', 'Parameter': 'y', 'Max Deviation (%)': '12206.45', 'Allowed Max (%)': '10.00', 'Mean Deviation (%)': '843.20', 'Allowed Mean (%)': '5.00', 'Status': 'Non-Compliant', 'Details/Reasoning': 'Max deviation 12206.45% exceeds allowed 10.00%.'}
+{'Compliance Section': '4.1', 'Parameter': 'z', 'Max Deviation (%)': '87.05', 'Allowed Max (%)': '10.00', 'Mean Deviation (%)': '29.12', 'Allowed Mean (%)': '5.00', 'Status': 'Non-Compliant', 'Details/Reasoning': 'Max deviation 87.05% exceeds allowed 10.00%.'}
+{'Compliance Section': '4.1', 'Parameter': 'Tot', 'Max Deviation (%)': '19.53', 'Allowed Max (%)': '10.00', 'Mean Deviation (%)': '10.71', 'Allowed Mean (%)': '5.00', 'Status': 'Non-Compliant', 'Details/Reasoning': 'Max deviation 19.53% exceeds allowed 10.00%.'}

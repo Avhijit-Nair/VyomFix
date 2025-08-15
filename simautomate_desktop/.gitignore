@@ -2,7 +2,7 @@
 *.csv
 
 # Ignore all JSON files
-*.json
+# *.json
 
 # Ignore Python cache and compiled files
 __pycache__/

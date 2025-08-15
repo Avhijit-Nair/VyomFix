@@ -1,0 +1,30 @@
+{
+  "status": "CRITICAL",
+  "max_deviations": {
+    "Northing": 90.0,
+    "Northing Absolute": 90.0,
+    "Easting": 90.0,
+    "Easting Absolute": 90.0,
+    "Altitude": 90.0,
+    "Altitude Absolute": 90.0
+  },
+  "avg_deviations": {
+    "Northing": 34.971561054740334,
+    "Northing Absolute": 34.971561054740334,
+    "Easting": 34.971561054740334,
+    "Easting Absolute": 34.971561054740334,
+    "Altitude": 34.971561054740334,
+    "Altitude Absolute": 34.971561054740334
+  },
+  "critical_params": [
+    "Northing",
+    "Northing Absolute",
+    "Easting",
+    "Easting Absolute",
+    "Altitude",
+    "Altitude Absolute"
+  ],
+  "warning_params": [],
+  "compliant_params": [],
+  "summary": "Analysis complete. 0 parameters compliant, 0 with warnings, 6 critical."
+}

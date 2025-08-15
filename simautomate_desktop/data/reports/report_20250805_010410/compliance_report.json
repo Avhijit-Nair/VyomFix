@@ -1,0 +1,30 @@
+{
+  "status": "COMPLIANT",
+  "max_deviations": {
+    "Northing": 5.024552202874978e-13,
+    "Northing Absolute": 5.024552202874978e-13,
+    "Easting": 6.394884621840883e-13,
+    "Easting Absolute": 6.394884621840883e-13,
+    "Altitude": 6.394884621840883e-13,
+    "Altitude Absolute": 6.394884621840883e-13
+  },
+  "avg_deviations": {
+    "Northing": 2.4214935356854417e-14,
+    "Northing Absolute": 2.4214935356854417e-14,
+    "Easting": 2.8046326518549038e-14,
+    "Easting Absolute": 2.8046326518549038e-14,
+    "Altitude": 2.8046326518549038e-14,
+    "Altitude Absolute": 2.8046326518549038e-14
+  },
+  "critical_params": [],
+  "warning_params": [],
+  "compliant_params": [
+    "Northing",
+    "Northing Absolute",
+    "Easting",
+    "Easting Absolute",
+    "Altitude",
+    "Altitude Absolute"
+  ],
+  "summary": "Analysis complete. 6 parameters compliant, 0 with warnings, 0 critical."
+}
